@@ -25,7 +25,8 @@ readPort = do
 main :: Effect Unit
 main = do
   port <- readPort
-  _ <- HTTPure.serve port app booted
+  _ <-
+    HTTPure.serve port app (Console.log ("Server now up on port " <> show port))
   pure unit
   where
     app :: Request -> ResponseM
@@ -36,6 +37,3 @@ main = do
           HTTPure.badRequest "invalid params"
         Either.Left Router.NotFound ->
           HTTPure.notFound
-
-    booted :: Effect Unit
-    booted = Console.log "Server now up on port 8080"

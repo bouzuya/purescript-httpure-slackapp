@@ -11,5 +11,5 @@ render name =
   SimpleJSON.writeJSON
     {
       response_type: "ephemeral", -- or "in_channel",
-      text: "Hello, " <> name
+      text: "Hello, " <> name <> "!"
     }
