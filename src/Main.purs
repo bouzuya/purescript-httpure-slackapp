@@ -26,7 +26,13 @@ main :: Effect Unit
 main = do
   port <- readPort
   _ <-
-    HTTPure.serve port app (Console.log ("Server now up on port " <> show port))
+    HTTPure.serve'
+      { backlog: Maybe.Nothing
+      , hostname: "0.0.0.0"
+      , port
+      }
+      app
+      (Console.log ("Server now up on port " <> show port))
   pure unit
   where
     app :: Request -> ResponseM
