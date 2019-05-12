@@ -21,7 +21,7 @@
   "scripts": {
     "build": "spago build",
     "spago": "spago",
-    "start": "spago run",
+    "start": "node -e \"require('./output/Main/index.js').main();\"",
     "test": "spago test"
   }
 }

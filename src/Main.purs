@@ -6,14 +6,27 @@ import Prelude
 
 import Action as Action
 import Data.Either as Either
+import Data.Int as Int
+import Data.Maybe as Maybe
 import Effect (Effect)
 import Effect.Console as Console
-import HTTPure (Request, ResponseM, ServerM)
+import Effect.Exception as Exception
+import HTTPure (Request, ResponseM)
 import HTTPure as HTTPure
+import Node.Process as Process
 import Router as Router
 
-main :: ServerM -- Effect Unit
-main = HTTPure.serve port app booted
+readPort :: Effect Int
+readPort = do
+  portStringMaybe <- Process.lookupEnv "PORT"
+  let portMaybe = Maybe.maybe (pure 8080) Int.fromString portStringMaybe
+  Maybe.maybe (Exception.throw "invalid port") pure portMaybe
+
+main :: Effect Unit
+main = do
+  port <- readPort
+  _ <- HTTPure.serve port app booted
+  pure unit
   where
     app :: Request -> ResponseM
     app request =
@@ -26,6 +39,3 @@ main = HTTPure.serve port app booted
 
     booted :: Effect Unit
     booted = Console.log "Server now up on port 8080"
-
-    port :: Int
-    port = 8080
