@@ -7,4 +7,5 @@ import View.Hello as ViewHello
 
 execute :: String -> HTTPure.ResponseM
 execute name = do
-  HTTPure.ok (ViewHello.render name)
+  let headers = HTTPure.header "Content-Type" "application/json"
+  HTTPure.ok' headers (ViewHello.render name)
