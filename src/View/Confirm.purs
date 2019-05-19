@@ -4,8 +4,8 @@ module View.Confirm
 
 import Data.Maybe as Maybe
 import Simple.JSON as SimpleJSON
+import View.Helper.Block as Block
 import View.Helper.BlockElement as BlockElement
-import View.Helper.LayoutBlock as LayoutBlock
 import View.Helper.TextObject as TextObject
 
 render :: String
@@ -14,12 +14,11 @@ render =
     {
       response_type: "ephemeral", -- or "in_channel",
       blocks:
-      [ LayoutBlock.sectionBlock
+      [ Block.sectionBlock
         { text:
-          TextObject.plainText
-            { text: "confirm!", emoji: Maybe.Nothing }
+          TextObject.plainText { text: "confirm!" }
         }
-      , LayoutBlock.actionsBlock
+      , Block.actionsBlock
         { elements:
           [ BlockElement.linkButton
               { text: "Link"
