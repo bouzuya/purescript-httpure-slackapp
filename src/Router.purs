@@ -49,6 +49,12 @@ type Payload =
 router :: HTTPure.Request -> Either RouteError Action
 router request =
   case request.path of
+    ["confirm"] ->
+      case request.method of
+        HTTPure.Post -> do
+          payload <- fromURLEncoded request.body :: _ _ Payload
+          pure Confirm
+        _ -> Either.Left NotFound -- TODO: 405
     ["hello"] ->
       case request.method of
         HTTPure.Post -> do
