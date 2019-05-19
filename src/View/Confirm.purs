@@ -11,7 +11,10 @@ import View.Helper.TextObject as TextObject
 render :: String
 render =
   SimpleJSON.writeJSON
+    -- https://api.slack.com/reference/messaging/payload
     {
+      -- undocumented:
+      -- https://api.slack.com/slash-commands#responding_immediate_response
       response_type: "ephemeral", -- or "in_channel",
       blocks:
       [ Block.sectionBlock
@@ -22,21 +25,18 @@ render =
         { elements:
           [ BlockElement.linkButton
               { text: "Link"
-              , emoji: Maybe.Just true
               , action_id: "link"
               , url: "http://example.com/"
               , style: Maybe.Nothing
               }
           , BlockElement.actionButton
             { text: "Cancel"
-            , emoji: Maybe.Just true
             , action_id: "cancel"
             , value: Maybe.Nothing
             , style: Maybe.Nothing
             }
           , BlockElement.actionButton
             { text: "OK"
-            , emoji: Maybe.Just true
             , action_id: "ok"
             , value: Maybe.Nothing
             , style: Maybe.Just "primary"

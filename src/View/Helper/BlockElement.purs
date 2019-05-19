@@ -36,13 +36,12 @@ type ButtonJSON =
 
 actionButton ::
   { text :: String
-  , emoji :: Maybe Boolean
   , action_id :: String
   , value :: Maybe String
   , style :: Maybe String
   }
   -> BlockElement
-actionButton { text, emoji, action_id, value, style } = Button
+actionButton { text, action_id, value, style } = Button
   -- TODO: CodeUnits.length text <= 75
   -- TODO: CodeUnits.length action_id <= 255
   -- TODO: CodeUnits.length value <= 2000
@@ -57,13 +56,12 @@ actionButton { text, emoji, action_id, value, style } = Button
 
 linkButton ::
   { text :: String
-  , emoji :: Maybe Boolean
   , action_id :: String
   , url :: String
   , style :: Maybe String
   }
   -> BlockElement
-linkButton { text, emoji, action_id, url, style } = Button
+linkButton { text, action_id, url, style } = Button
   -- TODO: CodeUnits.length text <= 75
   -- TODO: CodeUnits.length action_id <= 255
   -- TODO: CodeUnits.length value <= 2000
