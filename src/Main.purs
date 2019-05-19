@@ -13,6 +13,7 @@ import Effect.Console as Console
 import Effect.Exception as Exception
 import HTTPure (Request, ResponseM)
 import HTTPure as HTTPure
+import Node.HTTP (ListenOptions)
 import Node.Process as Process
 import Router as Router
 
@@ -27,10 +28,7 @@ main = do
   port <- readPort
   _ <-
     HTTPure.serve'
-      { backlog: Maybe.Nothing
-      , hostname: "0.0.0.0"
-      , port
-      }
+      (listenOptions port)
       app
       (Console.log ("Server now up on port " <> show port))
   pure unit
@@ -43,3 +41,10 @@ main = do
           HTTPure.badRequest "invalid params"
         Either.Left Router.NotFound ->
           HTTPure.notFound
+
+    listenOptions :: Int -> ListenOptions
+    listenOptions port =
+      { backlog: Maybe.Nothing
+      , hostname: "0.0.0.0"
+      , port
+      }
