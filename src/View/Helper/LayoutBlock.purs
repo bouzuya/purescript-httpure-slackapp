@@ -12,27 +12,28 @@ import Simple.JSON as SimpleJSON
 import View.Helper.BlockElement (BlockElement)
 import View.Helper.TextObject (TextObject)
 
+-- https://api.slack.com/reference/messaging/blocks#section
 type SectionBlockJSON =
-  { type :: String -- "section"
-  , text :: TextObject -- length text <= 3000
-  , block_id :: Maybe String -- length block_id <= 255
-  -- length fields <= 10 && length fields[i].text <= 2000
+  { type :: String
+  , text :: TextObject
+  , block_id :: Maybe String
   , fields :: Maybe (Array TextObject)
   , accessory :: Maybe BlockElement
   }
 
+-- https://api.slack.com/reference/messaging/blocks#actions
 type ActionsBlockJSON =
-  { type :: String -- "actions"
-  , elements :: Array BlockElement -- length elements <= 5
-  , block_id :: Maybe String -- length block_id <= 255
+  { type :: String
+  , elements :: Array BlockElement
+  , block_id :: Maybe String
   }
 
 data LayoutBlock
   = SectionBlock SectionBlockJSON
-  -- | Divider
-  -- | Image
+  -- TODO: | Divider
+  -- TODO: | Image
   | ActionsBlock ActionsBlockJSON
-  -- | Context
+  -- TODO: | Context
 
 instance writeForeignLayoutBlock :: WriteForeign LayoutBlock where
   writeImpl = case _ of
@@ -41,16 +42,22 @@ instance writeForeignLayoutBlock :: WriteForeign LayoutBlock where
 
 actionsBlock :: { elements :: Array BlockElement } -> LayoutBlock
 actionsBlock { elements } = ActionsBlock
+  -- TODO: length elements <= 5
+  -- TODO: length block_id <= 255
   { type: "actions"
   , elements
-  , block_id: Maybe.Nothing -- not supported
+  , block_id: Maybe.Nothing -- TODO: not supported
   }
 
 sectionBlock :: { text :: TextObject } -> LayoutBlock
 sectionBlock { text } = SectionBlock
+  -- TODO: length text <= 3000
+  -- TODO: length block_id <= 255
+  -- TODO: length fields <= 10
+  -- TODO: length fields[i].text <= 2000
   { type: "section"
   , text
-  , block_id: Maybe.Nothing -- not supported
-  , fields: Maybe.Nothing -- not supported
-  , accessory: Maybe.Nothing -- not supported
+  , block_id: Maybe.Nothing -- TODO: not supported
+  , fields: Maybe.Nothing -- TODO: not supported
+  , accessory: Maybe.Nothing -- TODO: not supported
   }

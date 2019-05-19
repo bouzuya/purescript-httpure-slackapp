@@ -13,11 +13,11 @@ import View.Helper.TextObject (TextObject)
 import View.Helper.TextObject as TextObject
 
 data BlockElement
-  -- = Image
+  -- TODO: = Image
   = Button ButtonJSON
-  -- | Select Menus
-  -- | Overflow Menu
-  -- | Date Picker
+  -- TODO: | Select Menus
+  -- TODO: | Overflow Menu
+  -- TODO: | Date Picker
 
 instance writeForeignBlockElement :: WriteForeign BlockElement where
   writeImpl = case _ of
@@ -48,7 +48,7 @@ actionButton { text, emoji, action_id, value, style } = Button
   -- TODO: CodeUnits.length value <= 2000
   -- TODO: style == Just "primary" or Just "danger" or Nothing
   { type: "button"
-  , text: TextObject.plainText { text, emoji }
+  , text: TextObject.plainText { text }
   , action_id
   , url: Maybe.Nothing
   , value
@@ -69,7 +69,7 @@ linkButton { text, emoji, action_id, url, style } = Button
   -- TODO: CodeUnits.length value <= 2000
   -- TODO: style == Just "primary" or Just "danger" or Nothing
   { type: "button"
-  , text: TextObject.plainText { text, emoji }
+  , text: TextObject.plainText { text }
   , action_id
   , url: Maybe.Just url
   , value: Maybe.Nothing

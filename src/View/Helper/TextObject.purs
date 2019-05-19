@@ -14,10 +14,10 @@ type TextObject =
   , verbatim :: Maybe Boolean -- mrkdwn only
   }
 
-plainText :: { text :: String, emoji :: Maybe Boolean } -> TextObject
-plainText { text, emoji } =
+plainText :: { text :: String } -> TextObject
+plainText { text } =
   { type: "plain_text"
   , text
-  , emoji
-  , verbatim: Maybe.Nothing
+  , emoji: Maybe.Nothing -- TODO: not supported
+  , verbatim: Maybe.Nothing -- TODO: not supported
   }
